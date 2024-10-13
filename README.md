@@ -23,14 +23,14 @@ The project follows a typical Express.js application structure:
 
 The following routes are available in the `routes/News.js/User_preferences.js/user.js` file:
 
-| Method                    | Path                   | Description                      | Authentication |
-| ------------------------- | ---------------------- | -------------------------------- | -------------- |
-| POST                      | `/api/v1/users/signup` | To Register the user (signup)    | Not Required   |
-| POST                      | `/api/v1/users/login`  | To login the user (signin)       | Required       |
-| GET                       | `/user/preferences`    | To Get all user news preferences | Required       |
-| PUT                       | `/user/preferences`    | To Update any news preferences   | Required       |
-| GET                       | `/api/v1/news`         | To get the Top Headlines with    | Required       |
-| Based on user preferences |
+| Method     | Path                     | Description                      | Authentication   |
+| ---------- | ------------------------ | -------------------------------- | ---------------- |
+| POST       | `/api/v1/users/signup`   | To Register the user (signup)    | Not Required     |
+| POST       | `/api/v1/users/login`    | To login the user (signin)       | Required         |
+| GET        | `/user/preferences`      | To Get all user news preferences | Required         |
+| PUT        | `/user/preferences`      | To Update any news preferences   | Required         |
+| GET        | `/api/v1/news`           | To get the Top Headlines with    | Required         |
+| ---------- | ------------------------ | based on user preferences        | ---------------- |
 
 ## Middlewares Used:
 
