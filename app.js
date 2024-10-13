@@ -5,7 +5,7 @@ const app = express();
 //const validateJWT = require("./Middlewares/ValidateJWT");
 /*import routes */
 const userRoutes = require("./Routes/user");
-const testRoutes = require("./Routes/user");
+//const testRoutes = require("./Routes/user");
 const UserPreferenceRoutes = require("./Routes/User_preferences");
 const NewsRoutes = require("./Routes/News");
 const errorHandler = require("./Middlewares/CommonErrHandler");
