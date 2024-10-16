@@ -24,9 +24,6 @@ router.put("/", validateJWT, validatePreferences, async (req, res, next) => {
         const user = await User.findOne({ email: req.user.email });
 
         //to check whether user is token is valid or not for loggedin user//
-        console.log("User from token:", req.user);
-        //console.log("Decoded token user email:", req.user.email);
-
 
         if (!user) {
             return res.status(400).send({ message: "User not found" });
@@ -87,7 +84,6 @@ router.get("/", validateJWT, async (req, res) => {
         res.status(200).send({ user });
     }
     catch (err) {
-        console.log(err);
         res.status(500).send({ message: "Internal Server Error" });
     }
 });
