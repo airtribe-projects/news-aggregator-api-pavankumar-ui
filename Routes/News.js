@@ -58,3 +58,4 @@ router.get("/", validateJWT, async (req, res, next) => {
 });
 
 module.exports = router;
+
