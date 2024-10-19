@@ -12,15 +12,6 @@ const { validatePreferences } = require("../Middlewares/Validate");
 router.put("/", validateJWT, validatePreferences, async (req, res, next) => {
     try {
         const { categories, languages, country } = req.body.preferences;
-
-
-        /*const { ObjectId } = mongoose.Types;
-        const userId = ObjectId(req.user.id);
-
-
-        const user = await User.findById(userId);*/
-
-
         const user = await User.findOne({ email: req.user.email });
 
         //to check whether user is token is valid or not for loggedin user//
@@ -60,9 +51,8 @@ router.put("/", validateJWT, validatePreferences, async (req, res, next) => {
         }
 
     } catch (err) {
-        console.log(err);
-        next(err);
         res.status(500).send({ message: "Internal Server Error" });
+        next(err);
     }
 });
 
@@ -71,10 +61,6 @@ router.put("/", validateJWT, validatePreferences, async (req, res, next) => {
 router.get("/", validateJWT, async (req, res) => {
 
     try {
-        /*const { ObjectId } = mongoose.Types;
-        const userId = ObjectId({ _id: req.user.id });*/
-
-
         const user = await User.findOne({ email: req.user.email });
 
         if (!user) {
@@ -88,5 +74,5 @@ router.get("/", validateJWT, async (req, res) => {
     }
 });
 
-
 module.exports = router;
+

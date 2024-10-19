@@ -11,8 +11,6 @@ const { validateLogin } = require("../Middlewares/Validate");
 
 const user = require("../Models/User");
 
-//console.log(secret);
-
 /* registering the user */
 router.post("/register", validateRegistration, async (req, res, next) => {
     try {
@@ -20,7 +18,7 @@ router.post("/register", validateRegistration, async (req, res, next) => {
         body.password = bcrypt.hashSync(body.password, 10);
         const dbUser = await user.create(body);
 
-        res.status(201).send({
+        res.status(200).send({
             message: "User Registered successfully",
             userId: dbUser._id,
         });
@@ -54,7 +52,7 @@ router.post("/login", validateLogin, async (req, res) => {
             { expiresIn: "1h" }
         );
 
-        return res.status(201).send({ success: true, token });
+        return res.status(200).send({ success: true, token });
     } catch (err) {
         return res.status(500).send({ message: "Internal Server Error" });
     }
