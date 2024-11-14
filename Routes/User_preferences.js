@@ -3,7 +3,6 @@ const router = express.Router();
 const User = require("../Models/User");
 const validateJWT = require("../Middlewares/ValidateJWT");
 const NEWSAPI = require("newsapi");
-const { default: mongoose } = require("mongoose");
 const Newsapikey = new NEWSAPI(process.env.API_KEY);
 const { validatePreferences } = require("../Middlewares/Validate");
 
