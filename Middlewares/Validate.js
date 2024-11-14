@@ -14,22 +14,28 @@ const loginSchema = Joi.object({
 });
 
 const preferencesSchema = Joi.object({
-    country: Joi.string().length(2).required(),
-    category: Joi.string()
-        .valid(
-            "business",
-            "entertainment",
-            "general",
-            "health",
-            "science",
-            "sports",
-            "technology"
-        )
-        .required(),
-    language: Joi.string().length(2)
-        .valid("en", "ar", "de", "es", "fr", "he", "it", "nl", "no", "pt", "ru", "sv", "ud", "zh")
-        .required(),
+    preferences: Joi.object({
+        categories: Joi.string()
+            .valid(
+                "business",
+                "entertainment",
+                "general",
+                "health",
+                "science",
+                "sports",
+                "technology"
+            )
+            .required(),
+        languages: Joi.string()
+            .length(2)
+            .valid("en", "ar", "de", "es", "fr", "he", "it", "nl", "no", "pt", "ru", "sv", "ud", "zh")
+            .required(),
+        country: Joi.string()
+            .length(2)
+            .required()
+    }).required()
 });
+
 
 
 const validateRegistration = (req, res, next) => {

@@ -11,7 +11,7 @@ router.get("/", validateJWT, async (req, res, next) => {
     try {
         //const userId = new mongoose.Types.ObjectId(req.userId);
 
-        const user = await User.findOne({ email: req.user.email });
+        const user = await User.findById(req.user._id);
 
         if (!user) {
             return res.status(401).send({ message: "User not found" });

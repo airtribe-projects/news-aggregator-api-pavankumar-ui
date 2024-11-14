@@ -12,7 +12,7 @@ const errorHandler = require("./Middlewares/CommonErrHandler");
 const mongoose = require("mongoose");
 
 mongoose
-    .connect(process.env.MONGO_URL, {})
+    .connect(process.env.MONGO_URL,{})
     .then(() => {
         console.log("connected to MongoDB");
     })
@@ -24,8 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 /* call the routes */
-app.use("/api/v1/users/signup", userRoutes);
-app.use("/api/v1/users/login", userRoutes);
+app.use("/api/v1/users", userRoutes);
 app.use("/user/preferences", UserPreferenceRoutes);
 app.use("/api/v1/news", NewsRoutes);
 app.use(errorHandler);

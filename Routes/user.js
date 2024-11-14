@@ -12,7 +12,7 @@ const { validateLogin } = require("../Middlewares/Validate");
 const user = require("../Models/User");
 
 /* registering the user */
-router.post("/register", validateRegistration, async (req, res, next) => {
+router.post("/register", validateRegistration, async (req,res,next) => {
     try {
         const body = req.body;
         body.password = bcrypt.hashSync(body.password, 10);
@@ -29,7 +29,7 @@ router.post("/register", validateRegistration, async (req, res, next) => {
 });
 
 /* login the user */
-router.post("/login", validateLogin, async (req, res) => {
+router.post("/login", validateLogin, async (req, res,next) => {
     try {
         const { email, password } = req.body;
         const dbUser = await user.findOne({ email });
@@ -47,7 +47,7 @@ router.post("/login", validateLogin, async (req, res) => {
         }
 
         const token = jwt.sign(
-            { email: dbUser.email, role: dbUser.role },
+            { email: dbUser.email, id:dbUser._id,role: dbUser.role },
             process.env.JWT_SECRET,
             { expiresIn: "1h" }
         );
