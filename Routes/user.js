@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const crypto = require("crypto");
 const { validateRegistration } = require("../Middlewares/Validate");
 const { validateLogin } = require("../Middlewares/Validate");
+const errorHandler = require("../Middlewares/CommonErrHandler");
 
 /*Enable this to Generate The Random Secret Key and store in env//
 //const secret = crypto.randomBytes(32).toString("hex");*/
@@ -23,8 +24,7 @@ router.post("/register", validateRegistration, async (req,res,next) => {
             userId: dbUser._id,
         });
     } catch (err) {
-        res.status(500).send({ message: "Internal Server Error" });
-        next(err);
+        errorHandler(err, req, res, next);
     }
 });
 
@@ -54,7 +54,7 @@ router.post("/login", validateLogin, async (req, res,next) => {
 
         return res.status(200).send({ success: true, token });
     } catch (err) {
-        return res.status(500).send({ message: "Internal Server Error" });
+        errorHandler(err, req, res, next);
     }
 });
 

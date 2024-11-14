@@ -5,6 +5,7 @@ const User = require("../Models/User");
 const axios = require("axios");
 const NEWSAPI = require("newsapi");
 const Article = require("../Models/Article");
+const errorHandler = require("../Middlewares/CommonErrHandler");
 
 router.get("/", validateJWT, async (req, res, next) => {
 
@@ -52,8 +53,7 @@ router.get("/", validateJWT, async (req, res, next) => {
             });
         }
     } catch (err) {
-        res.status(500).send({ message: "Internal Server Error" });
-        next(err);
+        errorHandler(err, req, res, next);
     }
 });
 

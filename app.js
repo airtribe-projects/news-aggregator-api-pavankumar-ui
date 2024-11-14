@@ -27,7 +27,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/v1/users", userRoutes);
 app.use("/user/preferences", UserPreferenceRoutes);
 app.use("/api/v1/news", NewsRoutes);
-app.use(errorHandler);
 
 
 app.listen(PORT, (err) => {

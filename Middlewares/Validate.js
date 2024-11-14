@@ -1,4 +1,5 @@
 const Joi = require("joi");
+const validationErrors = require("../Middlewares/CommonErrHandler");
 
 const registrationSchema = Joi.object({
     name: Joi.string().required(),
@@ -41,7 +42,7 @@ const preferencesSchema = Joi.object({
 const validateRegistration = (req, res, next) => {
     const { error } = registrationSchema.validate(req.body);
     if (error) {
-        return res.status(400).json({ message: error.details[0].message });
+        validationErrors(error,req,res,next);
     }
     next();
 };
@@ -50,7 +51,7 @@ const validateRegistration = (req, res, next) => {
 const validateLogin = (req, res, next) => {
     const { error } = loginSchema.validate(req.body);
     if (error) {
-        return res.status(400).json({ message: error.details[0].message });
+        validationErrors(error,req,res,next);
     }
     next();
 };
@@ -59,7 +60,7 @@ const validateLogin = (req, res, next) => {
 const validatePreferences = (req, res, next) => {
     const { error } = preferencesSchema.validate(req.body);
     if (error) {
-        return res.status(400).json({ message: error.details[0].message });
+        validationErrors(error,req,res,next);
     }
     next();
 };

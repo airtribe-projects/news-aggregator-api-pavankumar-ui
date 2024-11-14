@@ -5,6 +5,7 @@ const validateJWT = require("../Middlewares/ValidateJWT");
 const NEWSAPI = require("newsapi");
 const Newsapikey = new NEWSAPI(process.env.API_KEY);
 const { validatePreferences } = require("../Middlewares/Validate");
+const errorHandler = require("../Middlewares/CommonErrHandler");
 
 
 /* To update the Preferences */
@@ -50,8 +51,7 @@ router.put("/", validateJWT, validatePreferences, async (req, res, next) => {
         }
 
     } catch (err) {
-        res.status(500).send({ message: "Internal Server Error" });
-        next(err);
+            errorHandler(err, req, res, next);       
     }
 });
 
@@ -69,7 +69,7 @@ router.get("/", validateJWT, async (req, res) => {
         res.status(200).send({ user });
     }
     catch (err) {
-        res.status(500).send({ message: "Internal Server Error" });
+          errorHandler(err, req, res, next);
     }
 });
 
