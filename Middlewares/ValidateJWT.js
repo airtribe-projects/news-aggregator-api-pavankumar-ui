@@ -6,7 +6,7 @@ const validateJWT = async (req, res, next) => {
     const token = headers.authorization;
     //if the user is not logged in, then we will not check the token
     if (!token || token === "") {
-        return res.status(400).send({ message: "Token not provided" });
+        return res.status(400).send({ "message": "Token not provided" });
     }
 
     try {
@@ -14,12 +14,12 @@ const validateJWT = async (req, res, next) => {
          const user = await User.findById(decodedToken.id);
          console.log(user);
         if (!user) {
-            return res.status(401).send({ message: "Invalid Token" });
+            return res.status(401).send({ "message": "Invalid Token" });
         }
         req.user = user;
         next();
     } catch (error) {
-        res.status(401).send({ message: "Invalid token or may be expired" });
+        return res.status(401).send({ "message": "Invalid token or may be expired" });
     }
 };
 

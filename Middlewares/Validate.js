@@ -1,12 +1,18 @@
 const Joi = require("joi");
-const validationErrors = require("../Middlewares/CommonErrHandler");
+const {validationErrors} = require("../Middlewares/CommonErrHandler");
 
 const registrationSchema = Joi.object({
     name: Joi.string().required(),
     email: Joi.string().email().required(),
     password: Joi.string()
-        .pattern(new RegExp('^[a-zA-Z0-9]{6,30}$')),
-})
+        .pattern(new RegExp('^[a-zA-Z0-9]{6,30}$'))
+        .required(),
+         preferences: Joi.object({
+            categories: Joi.string().default('general'),
+            languages: Joi.string().default('en'),
+            country: Joi.string().default('us')
+        })
+});
 
 const loginSchema = Joi.object({
     email: Joi.string().email().required(),
@@ -25,15 +31,13 @@ const preferencesSchema = Joi.object({
                 "science",
                 "sports",
                 "technology"
-            )
-            .required(),
+            ),
         languages: Joi.string()
             .length(2)
             .valid("en", "ar", "de", "es", "fr", "he", "it", "nl", "no", "pt", "ru", "sv", "ud", "zh")
-            .required(),
+            ,
         country: Joi.string()
             .length(2)
-            .required()
     }).required()
 });
 
@@ -42,7 +46,8 @@ const preferencesSchema = Joi.object({
 const validateRegistration = (req, res, next) => {
     const { error } = registrationSchema.validate(req.body);
     if (error) {
-        validationErrors(error,req,res,next);
+        
+       return validationErrors(error,req,res,next);
     }
     next();
 };
@@ -51,7 +56,7 @@ const validateRegistration = (req, res, next) => {
 const validateLogin = (req, res, next) => {
     const { error } = loginSchema.validate(req.body);
     if (error) {
-        validationErrors(error,req,res,next);
+        return validationErrors(error,req,res,next);
     }
     next();
 };
@@ -60,7 +65,7 @@ const validateLogin = (req, res, next) => {
 const validatePreferences = (req, res, next) => {
     const { error } = preferencesSchema.validate(req.body);
     if (error) {
-        validationErrors(error,req,res,next);
+        return validationErrors(error,req,res,next);
     }
     next();
 };

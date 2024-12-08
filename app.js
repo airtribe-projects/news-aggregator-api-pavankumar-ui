@@ -3,8 +3,8 @@ require("dotenv").config();
 const PORT = process.env.PORT || 3000;
 const app = express();
 /*import routes */
-const userRoutes = require("./Routes/user");
-const UserPreferenceRoutes = require("./Routes/User_preferences");
+const userRoutes = require("./Routes/Auth");
+const UserPreferenceRoutes = require("./Routes/UserPreferences");
 const NewsRoutes = require("./Routes/News");
 const errorHandler = require("./Middlewares/CommonErrHandler");
 
@@ -25,8 +25,8 @@ app.use(express.urlencoded({ extended: true }));
 
 /* call the routes */
 app.use("/api/v1/users", userRoutes);
-app.use("/user/preferences", UserPreferenceRoutes);
-app.use("/api/v1/news", NewsRoutes);
+app.use("/api/user", UserPreferenceRoutes);
+app.use("/api/v1", NewsRoutes);
 
 
 app.listen(PORT, (err) => {

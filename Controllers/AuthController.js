@@ -1,35 +1,43 @@
-const express = require("express");
 const jwt = require("jsonwebtoken");
-const router = express.Router();
 const bcrypt = require("bcrypt");
 const crypto = require("crypto");
-const { validateRegistration } = require("../Middlewares/Validate");
-const { validateLogin } = require("../Middlewares/Validate");
-const errorHandler = require("../Middlewares/CommonErrHandler");
+const {errorHandler} = require("../Middlewares/CommonErrHandler");
 
 /*Enable this to Generate The Random Secret Key and store in env//
 //const secret = crypto.randomBytes(32).toString("hex");*/
 
 const user = require("../Models/User");
 
-/* registering the user */
-router.post("/register", validateRegistration, async (req,res,next) => {
+
+const UserSignup = async (req,res,next) => {
     try {
-        const body = req.body;
-        body.password = bcrypt.hashSync(body.password, 10);
-        const dbUser = await user.create(body);
+        
+        const {name,email,password} =  req.body;
+        const existingUser = await user.findOne({email });
 
-        res.status(200).send({
-            message: "User Registered successfully",
-            userId: dbUser._id,
+        if(existingUser) {
+            return res.status(400).send({ "message": "Email already exists" });
+        }
+
+        const hashedPassword =await bcrypt.hash(password,10);
+        const dbUser = await user.create({
+            name,
+            email,
+            password:hashedPassword
         });
-    } catch (err) {
-        errorHandler(err, req, res, next);
-    }
-});
 
-/* login the user */
-router.post("/login", validateLogin, async (req, res,next) => {
+
+
+            return res.status(201).send({
+                message: "User Registered successfully",
+                userId: dbUser._id,
+            });
+    } catch (err) {
+      return  errorHandler(err, req, res, next);
+    }
+}
+
+const UserLogin = async (req, res,next) => {
     try {
         const { email, password } = req.body;
         const dbUser = await user.findOne({ email });
@@ -54,8 +62,12 @@ router.post("/login", validateLogin, async (req, res,next) => {
 
         return res.status(200).send({ success: true, token });
     } catch (err) {
-        errorHandler(err, req, res, next);
+       return  errorHandler(err, req, res, next);
     }
-});
+}
 
-module.exports = router;
+
+module.exports ={
+    UserSignup,
+    UserLogin
+}
