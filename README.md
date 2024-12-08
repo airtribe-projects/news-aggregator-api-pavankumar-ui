@@ -25,7 +25,7 @@ The following routes are available in the `routes/News.js/User_preferences.js/us
 
 | Method     | Path                     | Description                      | Authentication   |
 | ---------- | ------------------------ | -------------------------------- | ---------------- |
-| POST       | `/api/v1/users/signup`   | To Register the user (signup)    | Not Required     |
+| POST       | `/api/v1/users/register`   | To Register the user (signup)    | Not Required     |
 | POST       | `/api/v1/users/login`    | To login the user (signin)       | Required         |
 | GET        | `/user/preferences`      | To Get all user news preferences | Required         |
 | PUT        | `/user/preferences`      | To Update any news preferences   | Required         |
@@ -56,8 +56,10 @@ The following routes are available in the `routes/News.js/User_preferences.js/us
   `npm install jsonwebtoken`
   `npm install bcryptjs`
   `npm install joi`
+
+- If we want the dependency of api for `newsapi` without passing HTTP request directly, pass the below command.
   `npm install newsapi --save`
-- If we want the dependency of api for `newsapi` without passing HTTP request directly, pass the above command.
+
 
 - 3.setup the `.env` file with the following variables:
 
@@ -79,7 +81,7 @@ To make usage of the API, please pass the headers information like `Content-type
 
 you can use the following endpoints:
 
-- `POST /api/v1/users/signup` - Register a new user. - No need of Authorization Header for this endpoint.
+- `POST /api/v1/users/register` - Register a new user. - No need of Authorization Header for this endpoint.
 - `POST /api/v1/users/login` - Login and get a JWT token.
 - `GET /api/v1/news` - Get news articles based on user preferences.
 - `GET /user/preferences` - Get user preferences.
@@ -87,7 +89,7 @@ you can use the following endpoints:
 
 - Include the prefix like below for getting response:
 
-- eg: `http://localhost:3000/api/v1/users/signup`.
+- eg: `http://localhost:3000/api/v1/users/register`.
 
 ## Dependencies Used:
 
